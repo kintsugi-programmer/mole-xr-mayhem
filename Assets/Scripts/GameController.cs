@@ -3,32 +3,53 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
-    public TextMeshPro timerText;
-    public float gameTimer = 30f; // 30 seconds for game Timer
+    [Header("UI")]
+    public TMP_Text timerText;          // Drag your TextMeshPro object here
+    public float gameTimer = 30f;       // 30 seconds for game Timer
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Moles")]
+    public Transform moleContainer;     // Drag MoleContainer here
+    public float minSpawnDelay = 0.3f;  // Min time between moles popping
+    public float maxSpawnDelay = 1.0f;  // Max time between moles popping
+
+    private Mole[] moles;               // All Mole scripts under MoleContainer
+    private float spawnTimer;           // Counts down to next mole pop
+
     void Start()
     {
-        
+        // Get all Mole components from children of moleContainer
+        moles = moleContainer.GetComponentsInChildren<Mole>();
+
+        // First random delay
+        spawnTimer = Random.Range(minSpawnDelay, maxSpawnDelay);
     }
-    // Update is called once per frame
+
     void Update()
     {
-        // Update the Game Timer
-    gameTimer -= Time.deltaTime; // subtracts 1 second from game timer
-    // Check Game Timer is greater than 0 seconds
-    if (gameTimer > 0f)
-    {
-        // Update Text in Unity
-        timerText.text = "WHACK A MOLE: " + Mathf.Floor(gameTimer);
-    }
-    // Game Timer less than @ seconds
-    else
-    {
-        // Update Text in Unity to Game Over
-        timerText.text = "GAME OVER";
-    }
-        
+        // -------- TIMER UI --------
+        if (gameTimer > 0f)
+        {
+            gameTimer -= Time.deltaTime;
+            if (gameTimer < 0f) gameTimer = 0f;
+
+            timerText.text = "WHACK A MOLE: " + Mathf.FloorToInt(gameTimer);
+
+            // -------- MOLE POPPING --------
+            spawnTimer -= Time.deltaTime;
+
+            if (spawnTimer <= 0f && moles.Length > 0)
+            {
+                // Pick random mole and show it
+                int index = Random.Range(0, moles.Length);
+                moles[index].ShowMole();
+
+                // Set time until next mole
+                spawnTimer = Random.Range(minSpawnDelay, maxSpawnDelay);
+            }
+        }
+        else
+        {
+            timerText.text = "GAME OVER";
+        }
     }
 }
-

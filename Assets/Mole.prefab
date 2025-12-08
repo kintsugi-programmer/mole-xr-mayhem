@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 1243676245097059982}
   - component: {fileID: 4411865539871279987}
   - component: {fileID: 6807025711017966327}
+  - component: {fileID: 2340097092125675780}
   m_Layer: 0
   m_Name: Mole
   m_TagString: Untagged
@@ -253,7 +254,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2, y: 1, z: -2}
-  m_LocalScale: {x: 2, y: 1.5, z: 2}
+  m_LocalScale: {x: 2, y: 1.9499999, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1307663684239918240}
@@ -339,6 +340,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2340097092125675780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984992470343040471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8206e41cb9ecc4417a67d9c2ce03743a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mole
+  visibleYHeight: 2
+  hiddenYHeight: -1.6
+  speed: 4
+  visibleTime: 1.5
 --- !u!1 &3527628462146196923
 GameObject:
   m_ObjectHideFlags: 0
