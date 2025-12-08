@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using TMPro;
 public class Hammer : MonoBehaviour
 {
    private bool hammerIsUp = true;
@@ -9,12 +9,19 @@ public class Hammer : MonoBehaviour
     private Quaternion hammerUpRotation; // X Angle(90) when Hammer is up
     private float hammerDownMaxTime = 0.25f; // Max time to swing hammer before moving back up
 
+    private int score = 0; // Score variable to keep track of hits
+    [SerializeField]
+    private TextMeshPro scoreText; // Reference to the TextMeshPro component for displaying score
+
 // Start is called before the first frame update
     void Start()
     {
     // Initialize hammer rotations
     hammerDownRotation = Quaternion.Euler(hammerDownAngle, transform.rotation.y, transform.rotation.z);
     hammerUpRotation = Quaternion.Euler(hammerUpAngle, transform.rotation.y, transform.rotation.z);
+
+    score =0;
+
     }
 
     // Update is called once per frame
@@ -55,4 +62,21 @@ public class Hammer : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter(Collision collision){
+
+        if(collision.gameObject.CompareTag("Mole")) {
+            // If the hammer hits a target, update the score
+            updateScore();
+            // Optionally, you can add logic to destroy the target or play a sound effect here
+
+            Mole moleIHit = collision.gameObject.GetComponent<Mole>();
+            moleIHit.HideMole();
+        }
+    }
+
+    void updateScore()
+    {
+        score++; // Increment score by the points received
+        scoreText.text = "SCORE: " + score; // Update the score text
+    }
 }
