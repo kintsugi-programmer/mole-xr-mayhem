@@ -13,7 +13,11 @@ public class Hammer : MonoBehaviour
     [SerializeField]
     private TextMeshPro scoreText; // Reference to the TextMeshPro component for displaying score
 
-// Start is called before the first frame update
+
+    // hit a mole sound
+    private AudioSource sndEffectHitMole;
+
+    // Start is called before the first frame update
     void Start()
     {
     // Initialize hammer rotations
@@ -21,6 +25,9 @@ public class Hammer : MonoBehaviour
     hammerUpRotation = Quaternion.Euler(hammerUpAngle, transform.rotation.y, transform.rotation.z);
 
     score =0;
+
+    // get the Audio Sources to play when hammer hits a mole
+    sndEffectHitMole = GetComponent<AudioSource>();
 
     }
 
@@ -71,6 +78,10 @@ public class Hammer : MonoBehaviour
 
             Mole moleIHit = collision.gameObject.GetComponent<Mole>();
             moleIHit.HideMole();
+
+            // play the sound effect when hitting a mole
+            sndEffectHitMole.Play();
+
         }
     }
 

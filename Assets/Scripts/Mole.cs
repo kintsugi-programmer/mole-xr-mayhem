@@ -18,10 +18,16 @@ public class Mole : MonoBehaviour
     private float hideMoleTimer;
     private bool isVisible = false;
 
+    //sound on show mole
+    //private AudioSource sndEffectShowMole;
+
     void Awake()
     {
         // Start hidden
         HideMole(true);
+           
+        // get the Audio Sources to play when show mole
+        //sndEffectShowMole = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -54,6 +60,12 @@ public class Mole : MonoBehaviour
             visibleYHeight,
             transform.localPosition.z
         );
+
+        // play the show mole sound effect
+        //sndEffectShowMole.Play();
+
+        GameController.Instance.PlayShowMoleSound();
+
     }
 
     public void HideMole(bool instant = false)

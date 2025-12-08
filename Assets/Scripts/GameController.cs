@@ -18,6 +18,20 @@ public class GameController : MonoBehaviour
 
     public TMP_Text restartText;
 
+    public static GameController Instance;
+
+    public AudioSource sfxSource;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    public void PlayShowMoleSound()
+    {
+        sfxSource.Play();
+    }
+
     void Start()
     {
         moles = moleContainer.GetComponentsInChildren<Mole>();
@@ -61,4 +75,6 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+
 }
